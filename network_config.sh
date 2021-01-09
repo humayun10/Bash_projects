@@ -37,7 +37,6 @@ $logins $1
 if [ $? != 0 ]; then
 	echo "SCP not complete"
 	exit 1
-elif [ 	
 else
 	echo "SCP is now complete"
 fi
