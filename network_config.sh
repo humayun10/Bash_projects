@@ -7,12 +7,14 @@ IP=$2
 NEW_IP=$3
 FILE=ifcfg-${DEVICE}
 
+## Making sure that all variables are not empty
 if [[ -z "$DEVICE" || -z "$IP" || -z "$NEW_IP" ]]
 	then 
 	echo "Usage: ${0} network_device_name current_IP new_IP "
 	exit 1
 fi
 
+### Copying this to a temp file for scp
 cat <<EOF > /tmp/${FILE}
 DEVICE=${DEVICE}
 BOOTPROTO=static
@@ -23,16 +25,34 @@ GATEWAY=192.168.1.1
 DNS1=192.168.1.1
 EOF
 
-echo "Enter something goddammit:"
+echo "Enter ssh password:"
 read -s PASSWORD
 
-logins="sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP}"
+#Function-----------------------------------------------
+
+scp_access () {
+
+local logins="sshpass -p ${PASSWORD}"
+$logins $1
+if [ $? != 0 ]; then
+	echo "SCP not complete"
+	exit 1
+elif [ 	
+else
+	echo "SCP is now complete"
+fi
+}
+
+ssh_access () {
+local logins="sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP}"
+$logins $1
+}
 
 
-#SCP the file to the destination server
-sshpass -p $PASSWORD scp /tmp/$FILE root@${IP}:${LOCATION} 
+#Main----------------------------------------------------
 
-$logins systemctl restart network
+scp_access "scp /tmp/$FILE root@${IP}:${LOCATION}/rurufhfhfh"
+ssh_access "systemctl restart network"&
 
 exit 0
 
