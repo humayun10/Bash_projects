@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 LOCATION="/etc/sysconfig/network-scripts/"
 DEVICE=$1
 IP=$2
@@ -14,7 +13,7 @@ if [[ -z "$DEVICE" || -z "$IP" || -z "$NEW_IP" ]]
 	exit 1
 fi
 
-### Copying this to a temp file for scp
+# Copying this to a temp file for scp
 cat <<EOF > /tmp/${FILE}
 DEVICE=${DEVICE}
 BOOTPROTO=static
@@ -28,29 +27,36 @@ EOF
 echo "Enter ssh password:"
 read -s PASSWORD
 
+SSH="sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP}"
+
+
 #Function-----------------------------------------------
 
 scp_access () {
 
-local logins="sshpass -p ${PASSWORD}"
-$logins $1
-if [ $? != 0 ]; then
-	echo "SCP not complete"
-	exit 1
+local LOGINS="sshpass -p ${PASSWORD}"
+$LOGINS $1
+SUCCESS=$(echo $?)
+GREPPING=$($SSH grep -ow ${NEW_IP} ${LOCATION}${FILE})
+
+# Checking to see if the file has been copied and IP has been updated 
+if [[ "$SUCCESS" == 0 && "$GREPPING" == "$NEW_IP" ]]
+then
+	echo "SCP is complete"
 else
-	echo "SCP is now complete"
+	echo "SCP has failed"
+	exit 1
 fi
 }
 
 ssh_access () {
-local logins="sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP}"
-$logins $1
+$SSH $1
 }
 
 
 #Main----------------------------------------------------
 
-scp_access "scp /tmp/$FILE root@${IP}:${LOCATION}/rurufhfhfh"
+scp_access "scp /tmp/$FILE root@${IP}:${LOCATION}"
 ssh_access "systemctl restart network"&
 
 exit 0
