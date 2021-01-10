@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# I have created this script to update IP's on new servers i build, destroy and rebuild again. This will save me alot of time when creating various projects in my homelab.
+# I will probably update this script so that I can run other commands such as yum update using the ssh_access () function.
+
 LOCATION="/etc/sysconfig/network-scripts/"
 DEVICE=$1
 IP=$2
