@@ -9,7 +9,7 @@ FILE=ifcfg-${DEVICE}
 ## Making sure that all variables are not empty
 if [[ -z "$DEVICE" || -z "$IP" || -z "$NEW_IP" ]]
 	then 
-	echo "Usage: ${0} network_device_name current_IP new_IP "
+	echo "Usage: ${0} <network_device_name> <current_IP> <new_IP>"
 	exit 1
 fi
 
