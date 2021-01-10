@@ -64,4 +64,3 @@ scp_access "scp /tmp/$FILE root@${IP}:${LOCATION}"
 ssh_access "systemctl restart network"&
 
 exit 0
-exit 0
