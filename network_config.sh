@@ -34,12 +34,9 @@ read -s PASSWORD
 SSH="sshpass -p ${PASSWORD} ssh -o StrictHostKeyChecking=no root@${IP}"
 
 
-#Function-----------------------------------------------
-
-scp_access () {
-
-local LOGINS="sshpass -p ${PASSWORD}"
-$LOGINS $1
+#SCP file
+LOGINS="sshpass -p ${PASSWORD}"
+$LOGINS scp /tmp/$FILE root@${IP}:${LOCATION}
 SUCCESS=$(echo $?)
 GREPPING=$($SSH grep -ow ${NEW_IP} ${LOCATION}${FILE})
 
@@ -51,7 +48,10 @@ else
 	echo "SCP has failed"
 	exit 1
 fi
-}
+
+
+
+#Function-----------------------------------------------
 
 ssh_access () {
 $SSH $1
@@ -60,7 +60,7 @@ $SSH $1
 
 #Main----------------------------------------------------
 
-scp_access "scp /tmp/$FILE root@${IP}:${LOCATION}"
+#scp_access "scp /tmp/$FILE root@${IP}:${LOCATION}"
 ssh_access "systemctl restart network"&
 
 exit 0
