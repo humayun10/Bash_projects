@@ -44,10 +44,6 @@ ssh_access "touch /etc/sudoers.d/${USER} && chmod 600 /etc/sudoers.d/${USER} && 
 ssh_access "mkdir -p /home/${USER}/.ssh; chmod 700 /home/${USER}/.ssh; chown -R boss:boss ${HOME}/.ssh"
 ssh_access "touch /home/boss/.ssh/authorized_keys; echo '$KEY' >> /home/boss/.ssh/authorized_keys"
 
-#SSH config update
-ssh_access "sed -i 's/^#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config | grep 'PubkeyAuthentication'"
-#ssh_access "sed -i 's/^PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config; systemctl restart sshd"
-
 ##Changing hostname. Last part of the hostname will include the last OCTET of the ip address
 HOST=$(ssh_access "cat /etc/hostname")
 LAST_OCTET=$(ssh_access "ip addr | grep -i 'inet 192' | awk '{print $2}'| cut -d '.' -f 4 | cut -d '/' -f 1")
