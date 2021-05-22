@@ -1,4 +1,4 @@
-##first i used ps to print pid, memory and command and sorted by memory. Then I printed the first 11 lines of that output and sorted each line by column 2 with the lowest number. 
+##first i used ps to print pid, memory and command and sorted by memory. Then I printed the first 11 lines of that output and deleted the first line and sorted each line by column 2 starting with the lowest number. 
 ##I then printed MEMORY and COMMAND column and separated it with ":", this is so that I could use delimeter for the next step. This will all be stored in a variable.
 #I printed output 'PID' and 'COMMAND' as column headers.
 #I then looped through output and store colon delimited info in separate variables.
