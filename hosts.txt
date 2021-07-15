@@ -1,0 +1,5 @@
+kubernetes
+kube-node01
+jenkins-slave
+tomcat
+jenkins
