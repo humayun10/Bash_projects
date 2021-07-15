@@ -1,3 +1,4 @@
+#Pupose of this script is to print 10 processes that take up the most memory and sort it from the lowest to the highest.
 ##first i used ps to print pid, memory and command and sorted by memory. Then I printed the first 11 lines of that output and deleted the first line and sorted each line by column 2 starting with the lowest number. 
 ##I then printed MEMORY and COMMAND column and separated it with ":", this is so that I could use delimeter for the next step. This will all be stored in a variable.
 #I printed output 'PID' and 'COMMAND' as column headers.
