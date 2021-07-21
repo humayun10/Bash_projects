@@ -1,4 +1,4 @@
-## This APACHE script can be used on debian servers. 
+## This APACHE script can be used on debian servers to create subdomains on a webserver. 
 
 #!/bin/bash
 
