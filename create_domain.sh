@@ -1,3 +1,5 @@
+## This APACHE script can be used on debian servers. 
+
 #!/bin/bash
 
 read -p "Enter domain name: " DOMAIN
